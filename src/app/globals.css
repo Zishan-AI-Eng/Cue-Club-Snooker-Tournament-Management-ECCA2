@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* ===== Backgrounds ===== */
+  --color-bg-primary: #080B09;      /* Deep Black - main app background */
+  --color-bg-secondary: #101512;    /* Charcoal - cards, nav */
+  --color-bg-elevated: #161C18;     /* Modals, bottom sheets */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ===== Accents ===== */
+  --color-accent-green: #39E75F;    /* Primary accent - Snooker Green */
+  --color-accent-green-dark: #123D1C; /* Dark green backgrounds */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* ===== Rank Colors ===== */
+  --color-gold: #F5C542;
+  --color-silver: #C8CDD0;
+  --color-bronze: #CD7F32;
+
+  /* ===== Text ===== */
+  --color-text-primary: #F5F7F6;
+  --color-text-secondary: #A8B0AA;
+  --color-text-muted: #6F7872;
+
+  /* ===== Structure ===== */
+  --color-border: #252C28;
+
+  /* ===== Status ===== */
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  /* ===== Typography ===== */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* ===== Radius ===== */
+  --radius-card: 1rem;
+  --radius-button: 0.75rem;
+  --radius-pill: 9999px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
+
+/* Mobile safe-area support (PRD Section 42) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
