@@ -25,8 +25,26 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  // Refreshes the session if expired - required for Server Components
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const path = request.nextUrl.pathname;
+  const isAuthRoute = path === "/login";
+  const isAdminRoute = path.startsWith("/admin");
+
+  // Only /admin routes require login. Home/Draws/Leaderboard/History are public.
+  if (!user && isAdminRoute) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+
+  if (user && isAuthRoute) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/home";
+    return NextResponse.redirect(url);
+  }
 
   return supabaseResponse;
 }
